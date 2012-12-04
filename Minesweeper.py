@@ -24,7 +24,6 @@ class block(object):
     def __repr__(self):
         """Returns a string representation of the block object"""
         return '%s %s %s %s' % (self.number, self.revealed, self.mine, self.flagged)
-
     def add_mine(self):
         pass
     def add_flag(self):
