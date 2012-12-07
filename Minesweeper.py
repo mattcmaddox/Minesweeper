@@ -23,27 +23,29 @@ mines = args['mines']
 # CLASSY!
 class block(object):
     """An instance of a positional block on the grid"""
-    def __init__(self, 0, False, False, False):
-        #self.number = number
-        #self.revealed = revealed
-        #self.mine = mine
-        #self.flagged = flagged
-
+    def __init__(self):
+        self.number = 0
+        self.revealed = False
+        self.mine = False
+        self.flagged = False
+    
     def __repr__(self):
         """Returns a string representation of the block object"""
         #return '%s %s %s %s' % (self.number, self.revealed, self.mine, self.flagged)
-        return '%s' % (self.number)
+        #return '%s' % (self.number)
+        return '%s' % (self.mine)
 
-    # put block attributes here instead of __init__?
-    def show_number(self):
-        print self.number
-    def show_revealed(self):
-        print self.revealed
+    def show(self):
+        print self.number, self.revealed, self.mine, self.flagged
+    def mine_maker(self):
+        self.mine = True
+        return self.mine
 
 
 # Builds Minefield Grid
-grid = [[block(0, False, False, False) for x in range(rows)] for y in range(columns)]
+grid = [[block() for y in range(columns)] for x in range(rows)]
 
+# Sets number of mines appropriate for grid size
 def gather_mines(rows, columns, mines):
     if mines == None:
         mines = int(rows * columns / 6.4)
@@ -51,11 +53,25 @@ def gather_mines(rows, columns, mines):
     else:
         return mines
 
+def mine_layer(rows, columns, mines):
+    while mines != 0:
+        random_block = grid[randint(0, (rows - 1))][randint(0, (columns - 1))]
+        if random_block.mine == False:
+            random_block.mine_maker()
+            mines -= 1
+        elif random_block.mine == True:
+            print "tried to lay mine in same place"
+        else:
+            print "Something went wrong!", random_block
+            return
+    return
 
-print gather_mines(rows, columns, mines)
+
+mines = gather_mines(rows, columns, mines)
 print mines
+mine_layer(rows, columns, mines)
 print grid
-
+#print "stuff", grid[randint(0, (rows - 1))][randint(0, (columns - 1))]
 
 
 def main():
