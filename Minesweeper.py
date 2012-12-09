@@ -32,8 +32,8 @@ class block(object):
     def __repr__(self):
         """Returns a string representation of the block object"""
         #return '%s %s %s %s' % (self.number, self.revealed, self.mine, self.flagged)
-        #return '%s' % (self.number)
-        return '%s' % (self.mine)
+        return '%s' % (self.number)
+        #return '%s' % (self.mine)
 
     def show(self):
         print self.number, self.revealed, self.mine, self.flagged
@@ -66,6 +66,14 @@ def mine_layer(rows, columns, mines):
             return
     return
 
+def grid_scanner(grid, pattern, value):
+    a = 0
+    for i in grid:
+        a += 1
+        print a
+print grid_scanner(grid, None, None)
+    
+print "hotdog!", [x for x in grid for y in grid]
 
 mines = gather_mines(rows, columns, mines)
 print mines
